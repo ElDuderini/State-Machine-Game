@@ -16,8 +16,6 @@ public class BulletScript : MonoBehaviour
     {
         transform.Translate(Vector3.forward * velocity * Time.deltaTime);
 
-        Debug.Log(Vector3.Distance(transform.position, start));
-
         if(Vector3.Distance(transform.position, start) > 50)
         {
             Destroy(gameObject);
