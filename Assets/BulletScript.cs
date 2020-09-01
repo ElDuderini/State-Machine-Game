@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public float velocity;
+    [Tooltip("Speed the bullets move")]
+    public float speed = 20;
+
     private Vector3 start;
 
     private void Start()
     {
+        //get starting position at start
         start = transform.position;
     }
 
     void Update()
     {
-        transform.Translate(Vector3.forward * velocity * Time.deltaTime);
+        //move the bullet forward at the given speed
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
+        //if the bullet goes too far, destroy it
         if(Vector3.Distance(transform.position, start) > 50)
         {
             Destroy(gameObject);
@@ -24,6 +29,7 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //destroy the bullet if an object is hit
         Destroy(gameObject);
     }
 }
