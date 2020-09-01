@@ -8,6 +8,8 @@ public class GunScript : MonoBehaviour
     public Camera camera;
     [Tooltip("How far the gun will look when no object at cursor")]
     public float lookAtDist = 100;
+    [Tooltip("UI object for the crosshair")]
+    public GameObject crosshair;
     [Tooltip("Prefab for the bullet")]
     public GameObject bullet;
     [Tooltip("UI progress bar icon object for reloading")]
@@ -42,6 +44,8 @@ public class GunScript : MonoBehaviour
 
     void Update()
     {
+        crosshair.transform.position = Input.mousePosition;
+
         RaycastHit hit;
         //raycast from the mouse positon on the screen
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
