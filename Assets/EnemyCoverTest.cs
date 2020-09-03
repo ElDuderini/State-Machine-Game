@@ -11,7 +11,6 @@ public class EnemyCoverTest : MonoBehaviour
     public string state = "wait";
     private float time;
     private Vector3 startPos;
-    private Vector3 oldPos;
     private Vector3 newPos;
 
     private void Start()
@@ -20,6 +19,7 @@ public class EnemyCoverTest : MonoBehaviour
     }
     void Update()
     {
+        //these states are temporary and will be changed to real states later
         if (state == "wait")
         {
             time += Time.deltaTime;
@@ -44,14 +44,16 @@ public class EnemyCoverTest : MonoBehaviour
     private Vector3 FindNewPosition()
     {
         time = 0;
-        oldPos = transform.position;
 
 
         for (int i = 0; i < 100; i++)
         {
             //choose a random point in range
             Vector3 pos = (Random.insideUnitSphere * coverRange) + startPos;
-            //if there are no objects between the enemy and player and there are objects between the new position and player
+            //first, find if there is an object between the enemy and player to determine if it is under cover (cover and uncovered will probably be two different states later)
+            //then check if the new position would be the opposite (e.g. if it wasn't behind cover, see if the new position would be)
+            //next, make sure the enemy wouldn't be partially inside an object (might change this to use the collider instead of number)
+            //Then, make sure there is nothing between the enemy's current position and the new position
             if (!Physics.Linecast(transform.position, Camera.main.transform.position) && Physics.Linecast(pos, Camera.main.transform.position) && !Physics.CheckSphere(pos, colliderRange) && !Physics.Linecast(transform.position, pos))
             {
                 print("Finding Cover");

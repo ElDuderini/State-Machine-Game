@@ -29,6 +29,8 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //determine if hit enemy here!
+
         //destroy the bullet if an object is hit
         Destroy(gameObject);
     }
