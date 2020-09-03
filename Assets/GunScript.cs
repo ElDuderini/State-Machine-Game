@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GunScript : MonoBehaviour
 {
-    public Camera camera;
     [Tooltip("How far the gun will look when no object at cursor")]
     public float lookAtDist = 100;
     [Tooltip("UI object for the crosshair")]
@@ -29,9 +28,6 @@ public class GunScript : MonoBehaviour
 
     void Start()
     {
-        //get the main camera
-        camera = transform.parent.GetComponent<Camera>();
-
         //start the player with full ammo
         ammo = maxAmmo;
 
@@ -48,7 +44,7 @@ public class GunScript : MonoBehaviour
 
         RaycastHit hit;
         //raycast from the mouse positon on the screen
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         //if the raycast hits something, point the gun at it
         if (Physics.Raycast(ray, out hit))
@@ -65,6 +61,7 @@ public class GunScript : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && ammo > 0 && !reloading)
         {
             GameObject go = Instantiate(bullet);
+            go.transform.position = transform.position;
             go.transform.rotation = transform.rotation;
             ammo--;
             Destroy(ammoUI.transform.GetChild(0).gameObject);

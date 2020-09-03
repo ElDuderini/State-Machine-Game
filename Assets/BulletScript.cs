@@ -29,9 +29,26 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //determine if hit enemy here!
+        //determine if hit enemy or player
+        if(gameObject.tag == "PlayerBullet" && other.tag == "Enemy")
+        {
+            //destroy the enemy
+            Destroy(other.gameObject);
+            //destroy the bullet
+            Destroy(gameObject);
+        }
+        else if(gameObject.tag == "EnemyBullet" && other.tag == "Player")
+        {
+            //set player's damage screen to active
+            other.transform.GetChild(0).gameObject.SetActive(true);
+            //destroy the bullet
+            Destroy(gameObject);
+        }
 
-        //destroy the bullet if an object is hit
-        Destroy(gameObject);
+        //destroy the bullet if any environment object is hit
+        if(other.tag == "Environment")
+        {
+            Destroy(gameObject);
+        }
     }
 }
