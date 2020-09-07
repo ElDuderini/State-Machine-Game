@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7383391011625684232}
-  - component: {fileID: 7383391011625684235}
+  - component: {fileID: -4774525027830334646}
   - component: {fileID: 7383391011625684238}
   - component: {fileID: 7383391011625684233}
   m_Layer: 8
-  m_Name: FarEnemy
+  m_Name: FlyingEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7383391011625684235
+--- !u!114 &-4774525027830334646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7383391011625684234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfb6ebd3869737e4aab464b31d6b8ebd, type: 3}
+  m_Script: {fileID: 11500000, guid: 61c05362dd440884b9771c9efea710f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   chanceToAttack: 15

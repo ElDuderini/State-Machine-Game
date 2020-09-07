@@ -7,13 +7,13 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("prefab for the enemy that will be spawned")]
     public GameObject enemyPrefab;
     [Tooltip("time it takes between spawning enemies")]
-    public float timeToSpawn;
+    public float timeToSpawn = 1.65f;
     [Tooltip("maximum number of enemies that can be alive at once")]
-    public int maxEnemies;
+    public int maxEnemies = 7;
     [Tooltip("total enemies the spawner will spawn, 0 = infinite")]
-    public int totalEnemies;
+    public int totalEnemies = 0;
     [Tooltip("whether to spawn an enemy immediately when the spawner is loaded")]
-    public bool spawnEnemyAtStart;
+    public bool spawnEnemyAtStart = true;
 
     private int enemiesSpawned;
     private float time;

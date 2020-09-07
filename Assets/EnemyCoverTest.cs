@@ -5,13 +5,13 @@ using UnityEngine;
 public class EnemyCoverTest : MonoBehaviour
 {
     [Tooltip("% chance the enemy will attack after waiting")]
-    public int chanceToAttack;
+    public int chanceToAttack = 15;
     [Tooltip("how far away the enemy can move from its start position")]
-    public float moveRange;
+    public float moveRange = 5;
     [Tooltip("how long the enemy waits before moving")]
-    public float waitTime;
+    public float waitTime = 0.8f;
     [Tooltip("how fast the enemy moves between positions")]
-    public float speed;
+    public float speed = 10;
     [Tooltip("which layers the enemy should look at when determining if there is something in the way of movement")]
     public LayerMask castLayers;
     [Tooltip("particle prefab for when the enemy dies")]
