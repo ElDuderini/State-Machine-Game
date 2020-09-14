@@ -6,6 +6,7 @@ public class BulletScript : MonoBehaviour
 {
     [Tooltip("Speed the bullets move")]
     public float speed = 20;
+    public float damage = 10;
 
     private Vector3 start;
 
@@ -27,6 +28,11 @@ public class BulletScript : MonoBehaviour
         }
     }
 
+    public void SetDamage(float value)
+    {
+        damage = value; 
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         //determine if hit enemy or player
@@ -34,6 +40,8 @@ public class BulletScript : MonoBehaviour
         {
             //destroy the enemy
             Destroy(other.gameObject);
+            //add to score 
+            ScoreManager.instance.AddScore(other.gameObject.GetComponent<FlyingEnemySC>().GetScorePoints()); 
             //destroy the bullet
             Destroy(gameObject);
         }
@@ -41,6 +49,8 @@ public class BulletScript : MonoBehaviour
         {
             //set player's damage screen to active
             other.transform.GetChild(0).gameObject.SetActive(true);
+            //show health damage
+            HealthManager.instance.SubtractHealth(damage);
             //destroy the bullet
             Destroy(gameObject);
         }
