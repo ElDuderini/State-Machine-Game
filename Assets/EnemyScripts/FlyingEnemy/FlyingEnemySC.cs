@@ -35,6 +35,7 @@ public class FlyingEnemySC : MonoBehaviour
     void Update()
     {
         currentState.Act(this);
+        transform.LookAt(Camera.main.transform.position);
     }
 
     public void SetState(FlyingEnemyState state)
