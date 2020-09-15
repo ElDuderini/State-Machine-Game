@@ -58,6 +58,8 @@ MonoBehaviour:
     type: 3}
   enemyShot: {fileID: 3343128134417908277, guid: e733be860afeb4247a06a1ccb66b657d,
     type: 3}
+  scorePoints: 15
+  startPos: {x: 0, y: 0, z: 0}
 --- !u!135 &7383391011625684238
 SphereCollider:
   m_ObjectHideFlags: 0

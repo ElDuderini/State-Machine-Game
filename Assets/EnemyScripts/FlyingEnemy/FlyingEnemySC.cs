@@ -19,6 +19,9 @@ public class FlyingEnemySC : MonoBehaviour
     [Tooltip("prefab for the enemy's bullets")]
     public GameObject enemyShot;
 
+    public float scorePoints = 10;
+    public float damage = 10; 
+
     public Vector3 startPos;
     private bool isQuit;
 
@@ -48,9 +51,16 @@ public class FlyingEnemySC : MonoBehaviour
         }
     }
 
+    public float GetScorePoints() 
+    {
+        return scorePoints; 
+    }
+
+
     public void Shoot()
     {
         GameObject go = Instantiate(enemyShot);
+        go.GetComponent<BulletScript>().SetDamage(damage); 
         go.transform.position = transform.position;
         go.transform.LookAt(Camera.main.transform.position);
     }
