@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class FlyingEnemySC : MonoBehaviour
+public class GroundEnemySC : MonoBehaviour
 {
     [Tooltip("% chance the enemy will attack after waiting")]
     public int chanceToAttack = 15;
@@ -16,24 +17,32 @@ public class FlyingEnemySC : MonoBehaviour
     public GameObject enemyParticle;
     [Tooltip("prefab for the enemy's bullets")]
     public GameObject enemyShot;
+    [Tooltip("how long the enemy will try to get to its destination before timing out")]
+    public float navigationTimeout;
+    [Tooltip("how close the enemy will be to its destination before stopping")]
+    public float distanceReach;
 
     public float scorePoints = 10;
     public float damage = 10; 
 
     public Vector3 startPos;
     private bool isQuit;
+    public NavMeshAgent agent;
 
     //how far away the enemy can move from its start position
     [HideInInspector]
     public float moveRange = 5;
 
-    public FlyingEnemyState currentState;
+    public GroundEnemyState currentState;
 
     private void Start()
     {
         //get the range from the spawner at start
-        moveRange = transform.parent.GetComponent<EnemySpawner>().range;
-        SetState(new FlyingCoverState());
+        if(transform.parent)
+        {
+            moveRange = transform.parent.GetComponent<EnemySpawner>().range;
+        }
+        SetState(new GroundCoverState());
     }
 
     void Update()
@@ -42,7 +51,7 @@ public class FlyingEnemySC : MonoBehaviour
         transform.LookAt(Camera.main.transform.position);
     }
 
-    public void SetState(FlyingEnemyState state)
+    public void SetState(GroundEnemyState state)
     {
         if (currentState != null)
         {
@@ -68,6 +77,12 @@ public class FlyingEnemySC : MonoBehaviour
         go.GetComponent<BulletScript>().SetDamage(damage); 
         go.transform.position = transform.position;
         go.transform.LookAt(Camera.main.transform.position);
+    }
+
+    public void MoveToLocation(Vector3 target)
+    {
+        agent.SetDestination(target);
+        agent.isStopped = false;
     }
 
     private void OnDestroy()
