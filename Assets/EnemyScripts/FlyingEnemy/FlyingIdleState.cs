@@ -6,8 +6,26 @@ public class FlyingIdleState : FlyingEnemyState
 {
     private float time;
 
+    public override void OnStateEnter(FlyingEnemySC enemy)
+    {
+        enemy.canDodge = false;
+    }
+
     public override void Act(FlyingEnemySC enemy)
     {
+        if(enemy.canDodge == true)
+        {
+            int rand = Random.Range(1, 101);
+            if(rand <= enemy.dodgeChance)
+            {
+                enemy.SetState(new FlyingDodgeState());
+            }
+            else
+            {
+                enemy.canDodge = false;
+            }
+        }
+
         time += Time.deltaTime;
 
         if (time >= enemy.waitTime)

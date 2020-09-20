@@ -3,24 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GroundEnemySC : MonoBehaviour
+public class RushEnemySC : MonoBehaviour
 {
-    [Tooltip("% chance the enemy will attack after waiting")]
-    public int chanceToAttack = 15;
-    [Tooltip("how long the enemy waits before moving")]
-    public float waitTime = 0.8f;
     [Tooltip("how fast the enemy moves, overwrites the navmesh agent speed")]
     public float speed = 1;
-    [Tooltip("chance the enemy will try to dodge if a shot is moving towards it")]
-    public float dodgeChance = 10;
-    [Tooltip("how fast the enemy moves between positions during dodge")]
-    public float dodgeSpeed = 20;
+    [Tooltip("how long the enemy takes before exploding")]
+    public float explodeTime;
+    [Tooltip("how much the enemy grows before exploding")]
+    public float explodeScale;
     [Tooltip("which layers the enemy should look at when determining if there is something in the way of movement")]
     public LayerMask castLayers;
     [Tooltip("particle prefab for when the enemy dies")]
     public GameObject enemyParticle;
-    [Tooltip("prefab for the enemy's bullets")]
-    public GameObject enemyShot;
     [Tooltip("how long the enemy will try to get to its destination before timing out")]
     public float navigationTimeout;
 
@@ -29,15 +23,13 @@ public class GroundEnemySC : MonoBehaviour
 
     [HideInInspector]
     public Vector3 startPos;
-    [HideInInspector]
-    public bool canDodge;
     private bool isQuit;
 
     //how far away the enemy can move from its start position
     [HideInInspector]
     public float moveRange = 5;
 
-    public GroundEnemyState currentState;
+    public RushEnemyState currentState;
 
     private void Start()
     {
@@ -47,59 +39,42 @@ public class GroundEnemySC : MonoBehaviour
             moveRange = transform.parent.GetComponent<EnemySpawner>().range;
         }
         agent.speed = speed;
-        SetState(new GroundCoverState());
+        SetState(new RushMoveState());
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        if (GetComponent<Score>().health <= 0)
+        if(GetComponent<Score>().health <= 0 && currentState is RushAttackState == false)
         {
-            Destroy(gameObject);
+            SetState(new RushAttackState());
         }
 
         currentState.Act(this);
     }
 
-    public void SetState(GroundEnemyState state)
+    public void SetState(RushEnemyState state)
     {
         if (currentState != null)
         {
             currentState.OnStateExit(this);
         }
         currentState = state;
+        Debug.Log("Enemy in state " + currentState, gameObject);
         if (currentState != null)
         {
             currentState.OnStateEnter(this);
         }
     }
 
-    public void Shoot()
-    {
-        GameObject go = Instantiate(enemyShot);
-        go.GetComponent<BulletScript>().SetDamage(damage); 
-        go.transform.position = transform.position;
-        go.transform.LookAt(Camera.main.transform.position);
-    }
-
     public void MoveToLocation(Vector3 target)
     {
         agent.SetDestination(target);
         agent.isStopped = false;
-        agent.speed = speed;
     }
-    private void OnTriggerEnter(Collider other)
+
+    public void KillEnemy(GameObject go)
     {
-        if (other.tag == "PlayerBullet")
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(other.transform.position, other.transform.forward, out hit))
-            {
-                if (hit.collider.gameObject == gameObject)
-                {
-                    canDodge = true;
-                }
-            }
-        }
+        Destroy(go);
     }
 
     private void OnDestroy()

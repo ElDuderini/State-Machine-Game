@@ -6,8 +6,28 @@ public class GroundIdleState : GroundEnemyState
 {
     private float time;
 
+    public override void OnStateEnter(GroundEnemySC enemy)
+    {
+        enemy.canDodge = false;
+    }
+
     public override void Act(GroundEnemySC enemy)
     {
+        if (enemy.canDodge == true)
+        {
+            Debug.Log("try dodge");
+            int rand = Random.Range(1, 101);
+            if (rand <= enemy.dodgeChance)
+            {
+                Debug.Log("Dodge");
+                enemy.SetState(new GroundDodgeState());
+            }
+            else
+            {
+                enemy.canDodge = false;
+            }
+        }
+
         time += Time.deltaTime;
 
         if (time >= enemy.waitTime)

@@ -30,7 +30,7 @@ public class GroundUncoverState : GroundEnemyState
     {
         time += Time.deltaTime;
 
-        if(time > enemy.navigationTimeout || Vector3.Distance(enemy.agent.destination, enemy.transform.position) <= enemy.distanceReach)
+        if(time > enemy.navigationTimeout || enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
         {
             enemy.agent.isStopped = true;
             enemy.SetState(new GroundIdleState());

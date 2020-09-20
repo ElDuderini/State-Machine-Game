@@ -10,17 +10,25 @@ public class FlyingEnemySC : MonoBehaviour
     public float waitTime = 0.8f;
     [Tooltip("how fast the enemy moves between positions")]
     public float speed = 10;
+    [Tooltip("chance the enemy will try to dodge if a shot is moving towards it")]
+    public float dodgeChance = 10;
+    [Tooltip("how fast the enemy moves between positions during dodge")]
+    public float dodgeSpeed = 20;
+    [Tooltip("how many positions the enemy will move to when dodging")]
+    public float dodgeCount = 10;
     [Tooltip("which layers the enemy should look at when determining if there is something in the way of movement")]
     public LayerMask castLayers;
     [Tooltip("particle prefab for when the enemy dies")]
     public GameObject enemyParticle;
     [Tooltip("prefab for the enemy's bullets")]
     public GameObject enemyShot;
-
-    public float scorePoints = 10;
+    [Tooltip("how much damage the enemy does")]
     public float damage = 10; 
 
+    [HideInInspector]
     public Vector3 startPos;
+    [HideInInspector]
+    public bool canDodge;
     private bool isQuit;
 
     //how far away the enemy can move from its start position
@@ -38,6 +46,11 @@ public class FlyingEnemySC : MonoBehaviour
 
     void Update()
     {
+        if (GetComponent<Score>().health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         currentState.Act(this);
         transform.LookAt(Camera.main.transform.position);
     }
@@ -49,18 +62,11 @@ public class FlyingEnemySC : MonoBehaviour
             currentState.OnStateExit(this);
         }
         currentState = state;
-        Debug.Log("Enemy in state " + currentState, gameObject);
         if (currentState != null)
         {
             currentState.OnStateEnter(this);
         }
     }
-
-    public float GetScorePoints() 
-    {
-        return scorePoints; 
-    }
-
 
     public void Shoot()
     {
@@ -68,6 +74,21 @@ public class FlyingEnemySC : MonoBehaviour
         go.GetComponent<BulletScript>().SetDamage(damage); 
         go.transform.position = transform.position;
         go.transform.LookAt(Camera.main.transform.position);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "PlayerBullet")
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(other.transform.position, other.transform.forward, out hit))
+            {
+                if(hit.collider.gameObject == gameObject)
+                {
+                    canDodge = true;
+                }
+            }
+        }
     }
 
     private void OnDestroy()
