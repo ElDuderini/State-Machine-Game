@@ -10,6 +10,7 @@ public class RushMoveState : RushEnemyState
 
     public override void OnStateEnter(RushEnemySC enemy)
     {
+        //set navmesh agent's destination as the player
         enemy.agent.destination = Camera.main.transform.position;
     }
 
@@ -17,6 +18,7 @@ public class RushMoveState : RushEnemyState
     {
         time += Time.deltaTime;
 
+        //if close enough to the player, explode
         if(enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
         {
             enemy.agent.isStopped = true;

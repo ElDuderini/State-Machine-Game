@@ -21,17 +21,23 @@ public class FlyingDodgeState : FlyingEnemyState
         }
         else
         {
+            //move to position
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, newPos, enemy.dodgeSpeed * Time.deltaTime);
+            //when position has been reached
             if (enemy.transform.position == newPos)
             {
                 newPos = Vector3.zero;
+                //add one to count
                 count++;
+                //if under the amount of dodges
                 if(count < enemy.dodgeCount)
                 {
+                    //move to another point
                     FindNewPos(enemy);
                 }
                 else
                 {
+                    //if done dodging, idle
                     enemy.SetState(new FlyingIdleState());
                 }
             }

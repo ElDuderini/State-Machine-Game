@@ -52,6 +52,7 @@ public class GroundEnemySC : MonoBehaviour
 
     void FixedUpdate()
     {
+        //destroy enemy if health reaches 0
         if (GetComponent<Score>().health <= 0)
         {
             Destroy(gameObject);
@@ -89,6 +90,7 @@ public class GroundEnemySC : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        //if a player bullet enters trigger radius and is moving towards the enemy, set that it can dodge
         if (other.tag == "PlayerBullet")
         {
             RaycastHit hit;

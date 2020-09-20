@@ -11,6 +11,7 @@ public class RushAttackState : RushEnemyState
 
     public override void OnStateEnter(RushEnemySC enemy)
     {
+        //don't move when exploding
         enemy.agent.isStopped = true;
     }
 
@@ -22,6 +23,7 @@ public class RushAttackState : RushEnemyState
 
         if(time >= enemy.explodeTime)
         {
+            //find all colliders within explosion range (using spherecollider's radius)
             Collider[] colliders = Physics.OverlapSphere(enemy.transform.position, enemy.GetComponent<SphereCollider>().radius);
 
             foreach(Collider col in colliders)
@@ -43,6 +45,7 @@ public class RushAttackState : RushEnemyState
 
                 if(col.tag == "Enemy")
                 {
+                    //kill any enemies in range of explosion
                     enemy.KillEnemy(col.gameObject);
                 }
             }

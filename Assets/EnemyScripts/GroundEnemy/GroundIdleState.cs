@@ -8,22 +8,24 @@ public class GroundIdleState : GroundEnemyState
 
     public override void OnStateEnter(GroundEnemySC enemy)
     {
+        //reset to start watching for bullet
         enemy.canDodge = false;
     }
 
     public override void Act(GroundEnemySC enemy)
     {
+        //if bullet is heading towards enemy
         if (enemy.canDodge == true)
         {
-            Debug.Log("try dodge");
+            //create random chance of dodging based on dodge chance %
             int rand = Random.Range(1, 101);
             if (rand <= enemy.dodgeChance)
             {
-                Debug.Log("Dodge");
                 enemy.SetState(new GroundDodgeState());
             }
             else
             {
+                //if chance failed, don't dodge for this bullet
                 enemy.canDodge = false;
             }
         }

@@ -8,13 +8,16 @@ public class FlyingIdleState : FlyingEnemyState
 
     public override void OnStateEnter(FlyingEnemySC enemy)
     {
+        //reset to start checking for bullets moving towards enemy
         enemy.canDodge = false;
     }
 
     public override void Act(FlyingEnemySC enemy)
     {
+        //if bullet is heading towards enemy
         if(enemy.canDodge == true)
         {
+            //create random chance of dodging based off of dodge chance %
             int rand = Random.Range(1, 101);
             if(rand <= enemy.dodgeChance)
             {
@@ -22,6 +25,7 @@ public class FlyingIdleState : FlyingEnemyState
             }
             else
             {
+                //if chance failed, don't dodge for this bullet
                 enemy.canDodge = false;
             }
         }
