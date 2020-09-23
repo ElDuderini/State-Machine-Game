@@ -39,6 +39,8 @@ public class FlyingEnemySC : MonoBehaviour
 
     private void Start()
     {
+        startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
+
         //get the range from the spawner at start
         moveRange = transform.parent.GetComponent<EnemySpawner>().range;
         SetState(new FlyingCoverState());
@@ -70,10 +72,14 @@ public class FlyingEnemySC : MonoBehaviour
 
     public void Shoot()
     {
-        GameObject go = Instantiate(enemyShot);
-        go.GetComponent<BulletScript>().SetDamage(damage); 
-        go.transform.position = transform.position;
-        go.transform.LookAt(Camera.main.transform.position);
+        //make sure enemy is on screen before attacking
+        if (RendererExtensions.IsVisibleFrom(GetComponent<Renderer>(), Camera.main))
+        {
+            GameObject go = Instantiate(enemyShot);
+            go.GetComponent<BulletScript>().SetDamage(damage); 
+            go.transform.position = transform.position;
+            go.transform.LookAt(Camera.main.transform.position);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -41,6 +41,8 @@ public class GroundEnemySC : MonoBehaviour
 
     private void Start()
     {
+        startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
+
         //get the range from the spawner at start
         if(transform.parent)
         {
@@ -76,10 +78,15 @@ public class GroundEnemySC : MonoBehaviour
 
     public void Shoot()
     {
-        GameObject go = Instantiate(enemyShot);
-        go.GetComponent<BulletScript>().SetDamage(damage); 
-        go.transform.position = transform.position;
-        go.transform.LookAt(Camera.main.transform.position);
+        //make sure enemy is on screen before attacking
+        if(RendererExtensions.IsVisibleFrom(GetComponent<Renderer>(), Camera.main))
+        {
+            GameObject go = Instantiate(enemyShot);
+            go.GetComponent<BulletScript>().SetDamage(damage);
+            go.transform.position = transform.position;
+            go.transform.LookAt(Camera.main.transform.position);
+        }
+
     }
 
     public void MoveToLocation(Vector3 target)
@@ -117,5 +124,11 @@ public class GroundEnemySC : MonoBehaviour
     private void OnApplicationQuit()
     {
         isQuit = true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(agent.destination, GetComponent<CapsuleCollider>().radius);
     }
 }

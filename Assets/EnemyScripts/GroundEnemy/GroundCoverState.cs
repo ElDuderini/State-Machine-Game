@@ -14,14 +14,19 @@ public class GroundCoverState : GroundEnemyState
         {
             //choose a random point in range
             Vector3 pos = (Random.insideUnitSphere * enemy.moveRange) + enemy.startPos;
+            pos.y = enemy.transform.position.y;
 
-            //check if there will be an object between the enemy and player
+            //check if there will be an object between the enemy and player and point would not be on object
             if (Physics.Linecast(pos, Camera.main.transform.position, enemy.castLayers))
             {
-                newPos = pos;
-                enemy.MoveToLocation(newPos);
-
-                return;
+                //check if the navmesh agent can reach position without getting stuck
+                NavMeshPath path = new NavMeshPath();
+                if (enemy.agent.CalculatePath(pos, path) && path.status == NavMeshPathStatus.PathComplete)
+                {
+                    newPos = pos;
+                    enemy.MoveToLocation(newPos);
+                    return;
+                }
             }
         }
 

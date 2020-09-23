@@ -17,9 +17,11 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("whether to spawn an enemy immediately when the spawner is loaded")]
     public bool spawnEnemyAtStart = true;
 
-    private int enemiesSpawned;
+    [HideInInspector]
+    public int enemiesSpawned;
     private float time;
-    private Vector3 startPos;
+    [HideInInspector]
+    public Vector3 startPos;
 
     private void Start()
     {
@@ -27,8 +29,7 @@ public class EnemySpawner : MonoBehaviour
 
         if(spawnEnemyAtStart)
         {
-            Instantiate(enemyPrefab, transform.position, enemyPrefab.transform.rotation, transform);
-            enemiesSpawned++;
+            SpawnEnemy();
         }
     }
 
@@ -40,11 +41,41 @@ public class EnemySpawner : MonoBehaviour
             time += Time.deltaTime;
             if(time >= timeToSpawn)
             {
-                Instantiate(enemyPrefab, transform.position, enemyPrefab.transform.rotation, transform);
+                SpawnEnemy();
                 time = 0;
-                enemiesSpawned++;
             }
         }
+    }
+
+    void SpawnEnemy()
+    {
+        //try 100 times to spawn an enemy
+        for(int i = 0; i < 100; i++)
+        {
+            //get a random point in the spawner's range
+            Vector3 rand = (Random.insideUnitSphere * range) + transform.position;
+            //add to y for raycast down
+            rand.y += 50;
+            RaycastHit hit;
+            //raycast down to check for ground
+            if(Physics.Raycast(rand, Vector3.down, out hit, 1 << LayerMask.NameToLayer("Environment")))
+            {
+                //raycast between spawn point and camera to see if the enemy will spawn behind cover
+                if (Physics.Linecast(hit.point, Camera.main.transform.position, 1 << LayerMask.NameToLayer("Cover")))
+                {
+                    //spawn the enemy and stop the loop
+                    enemiesSpawned++;
+                    GameObject go = Instantiate(enemyPrefab, hit.point, enemyPrefab.transform.rotation, transform);
+                    //make sure flying enemies don't spawn in the ground
+                    if(enemyPrefab.GetComponent<FlyingEnemySC>())
+                    {
+                        go.transform.Translate(new Vector3(0, 1, 0));
+                    }
+                    return;
+                }
+            }
+        }
+
     }
 
     private void OnDrawGizmosSelected()

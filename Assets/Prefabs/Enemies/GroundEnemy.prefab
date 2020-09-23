@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5416203928332940548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.023, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,7 +106,7 @@ MonoBehaviour:
   dodgeSpeed: 20
   castLayers:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 3840
   enemyParticle: {fileID: 7739705542155594709, guid: f0b89cc7b10ecfd40a2b80fb167d78b7,
     type: 3}
   enemyShot: {fileID: 3343128134417908277, guid: e733be860afeb4247a06a1ccb66b657d,

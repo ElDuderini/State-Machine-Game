@@ -33,8 +33,10 @@ public class RushEnemySC : MonoBehaviour
 
     private void Start()
     {
+        startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
+
         //get the range from the spawner at start
-        if(transform.parent)
+        if (transform.parent)
         {
             moveRange = transform.parent.GetComponent<EnemySpawner>().range;
         }

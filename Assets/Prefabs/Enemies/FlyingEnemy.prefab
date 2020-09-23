@@ -137,7 +137,7 @@ MonoBehaviour:
   dodgeCount: 8
   castLayers:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 3840
   enemyParticle: {fileID: 7739705542155594709, guid: f0b89cc7b10ecfd40a2b80fb167d78b7,
     type: 3}
   enemyShot: {fileID: 3343128134417908277, guid: e733be860afeb4247a06a1ccb66b657d,
