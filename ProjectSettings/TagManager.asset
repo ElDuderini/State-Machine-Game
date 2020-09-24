@@ -3,12 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Enemy
-  - Environment
-  - EnemyBullet
-  - PlayerBullet
-  - Bullet
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -18,10 +13,10 @@ TagManager:
   - UI
   - 
   - 
-  - Enemy
-  - Environment
-  - Bullet
-  - Cover
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
