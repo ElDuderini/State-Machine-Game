@@ -6,6 +6,7 @@ public class BulletScript : MonoBehaviour
 {
     [Tooltip("Speed the bullets move")]
     public float speed = 20;
+    public float damage = 10;
 
     private Vector3 start;
 
@@ -27,9 +28,37 @@ public class BulletScript : MonoBehaviour
         }
     }
 
+    public void SetDamage(float value)
+    {
+        damage = value; 
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        //destroy the bullet if an object is hit
-        Destroy(gameObject);
+        //determine if hit enemy or player
+        if(gameObject.tag == "PlayerBullet" && other.tag == "Enemy")
+        {
+            //destroy the enemy
+            Destroy(other.gameObject);
+            //add to score 
+            ScoreManager.instance.AddScore(other.gameObject.GetComponent<FlyingEnemySC>().GetScorePoints()); 
+            //destroy the bullet
+            Destroy(gameObject);
+        }
+        else if(gameObject.tag == "EnemyBullet" && other.tag == "Player")
+        {
+            //set player's damage screen to active
+            other.transform.GetChild(0).gameObject.SetActive(true);
+            //show health damage
+            HealthManager.instance.SubtractHealth(damage);
+            //destroy the bullet
+            Destroy(gameObject);
+        }
+
+        //destroy the bullet if any environment object is hit
+        if(other.tag == "Environment")
+        {
+            Destroy(gameObject);
+        }
     }
 }
