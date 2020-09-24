@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class GunScript : MonoBehaviour
 {
-    public Camera camera;
+    public static GunScript instance;
+
     [Tooltip("How far the gun will look when no object at cursor")]
     public float lookAtDist = 100;
     [Tooltip("UI object for the crosshair")]
@@ -22,6 +23,7 @@ public class GunScript : MonoBehaviour
     public int maxAmmo = 20;
     [Tooltip("Time in seconds it takes to reload")]
     public float timeToReload = 2;
+    public Transform playerBullets;
 
     private int ammo;
     private bool reloading = false;
@@ -29,8 +31,10 @@ public class GunScript : MonoBehaviour
 
     void Start()
     {
-        //get the main camera
-        camera = transform.parent.GetComponent<Camera>();
+        if(!instance)
+        {
+            instance = this;
+        }
 
         //start the player with full ammo
         ammo = maxAmmo;
@@ -48,7 +52,7 @@ public class GunScript : MonoBehaviour
 
         RaycastHit hit;
         //raycast from the mouse positon on the screen
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         //if the raycast hits something, point the gun at it
         if (Physics.Raycast(ray, out hit))
@@ -64,7 +68,8 @@ public class GunScript : MonoBehaviour
         //if left click is pressed with ammo left and not reloading, create a bullet and remove ammo from the int and UI
         if(Input.GetMouseButtonDown(0) && ammo > 0 && !reloading)
         {
-            GameObject go = Instantiate(bullet);
+            GameObject go = Instantiate(bullet, playerBullets);
+            go.transform.position = transform.position;
             go.transform.rotation = transform.rotation;
             ammo--;
             Destroy(ammoUI.transform.GetChild(0).gameObject);
