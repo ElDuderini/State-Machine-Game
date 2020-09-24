@@ -29,6 +29,11 @@ public class GunScript : MonoBehaviour
     private bool reloading = false;
     private float time;
 
+    public AudioClip shootSound;
+    public AudioClip emptyMagSound;
+    public AudioClip reloadSound;
+    private AudioSource soundPlayer;
+
     void Start()
     {
         if(!instance)
@@ -44,6 +49,17 @@ public class GunScript : MonoBehaviour
         {
             Instantiate(ammoUIPrefab, ammoUI.transform);
         }
+
+        if (!soundPlayer)
+        {
+            soundPlayer = GetComponent<AudioSource>();
+        }
+    }
+
+    private void playSound(AudioClip sound)
+    {
+        soundPlayer.clip = sound;
+        soundPlayer.Play();
     }
 
     void Update()
@@ -73,6 +89,11 @@ public class GunScript : MonoBehaviour
             go.transform.rotation = transform.rotation;
             ammo--;
             Destroy(ammoUI.transform.GetChild(0).gameObject);
+            playSound(shootSound);
+        }
+        else if(Input.GetMouseButtonDown(0) && ammo == 0 && !reloading)
+        {
+            playSound(emptyMagSound);
         }
 
         if(reloading)
@@ -112,6 +133,7 @@ public class GunScript : MonoBehaviour
             {
                 time = 0;
                 reloading = true;
+                playSound(reloadSound);
             }
         }
     }

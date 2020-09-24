@@ -50,6 +50,7 @@ public class LevelManager : MonoBehaviour
         {
             newLevel = false;
             generatingLevel = true;
+            wormHole.gameObject.GetComponent<AudioSource>().Play();
         }
 
         float wormHoleAlpha = wormHole.material.GetFloat("_Alpha");
