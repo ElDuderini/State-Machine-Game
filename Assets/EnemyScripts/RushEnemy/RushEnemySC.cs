@@ -31,8 +31,16 @@ public class RushEnemySC : MonoBehaviour
 
     public RushEnemyState currentState;
 
+    public AudioClip deathSound;
+    public AudioClip attackSound;
+    public AudioClip talkSound;
+    private AudioSource soundPlayer;
+
     private void Start()
     {
+        soundPlayer = GetComponent<AudioSource>();
+        PlaySound(talkSound);
+
         startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
 
         //get the range from the spawner at start
@@ -76,6 +84,7 @@ public class RushEnemySC : MonoBehaviour
 
     public void KillEnemy(GameObject go)
     {
+        PlaySound(deathSound);
         Destroy(go);
     }
 
@@ -92,5 +101,11 @@ public class RushEnemySC : MonoBehaviour
     private void OnApplicationQuit()
     {
         isQuit = true;
+    }
+
+    public void PlaySound(AudioClip audio)
+    {
+        soundPlayer.clip = audio;
+        soundPlayer.Play();
     }
 }

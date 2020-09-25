@@ -37,8 +37,16 @@ public class FlyingEnemySC : MonoBehaviour
 
     public FlyingEnemyState currentState;
 
+    public AudioClip deathSound;
+    public AudioClip hoverSound;
+    public AudioClip attackSound;
+
+    private AudioSource soundPlayer;
+
     private void Start()
     {
+        soundPlayer = GetComponent<AudioSource>();
+        
         startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
 
         //get the range from the spawner at start
@@ -79,6 +87,7 @@ public class FlyingEnemySC : MonoBehaviour
             go.GetComponent<BulletScript>().SetDamage(damage); 
             go.transform.position = transform.position;
             go.transform.LookAt(Camera.main.transform.position);
+            PlaySound(attackSound);
         }
     }
 
@@ -99,6 +108,7 @@ public class FlyingEnemySC : MonoBehaviour
 
     private void OnDestroy()
     {
+        //PlaySound(deathSound);
         if (!isQuit)
         {
             GameObject go = Instantiate(enemyParticle);
@@ -110,5 +120,11 @@ public class FlyingEnemySC : MonoBehaviour
     private void OnApplicationQuit()
     {
         isQuit = true;
+    }
+
+    public void PlaySound(AudioClip audio)
+    {
+        soundPlayer.clip = audio;
+        soundPlayer.Play();
     }
 }

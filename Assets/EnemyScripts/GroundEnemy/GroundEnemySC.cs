@@ -39,10 +39,16 @@ public class GroundEnemySC : MonoBehaviour
 
     public GroundEnemyState currentState;
 
+
+    public AudioClip deathSound;
+
+    public AudioClip talkSound;
+    public AudioClip shootSound;
+
     private void Start()
     {
         startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
-
+        
         //get the range from the spawner at start
         if(transform.parent)
         {
@@ -130,5 +136,10 @@ public class GroundEnemySC : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(agent.destination, GetComponent<CapsuleCollider>().radius);
+    }
+
+    public void PlaySound(AudioClip audio)
+    {
+
     }
 }

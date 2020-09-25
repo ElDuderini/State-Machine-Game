@@ -46,6 +46,7 @@ public class FlyingDodgeState : FlyingEnemyState
 
     void FindNewPos(FlyingEnemySC enemy)
     {
+        enemy.PlaySound(enemy.hoverSound);
         for (int i = 0; i < 100; i++)
         {
             //choose a random point in range

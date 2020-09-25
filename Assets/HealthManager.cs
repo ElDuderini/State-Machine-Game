@@ -17,6 +17,8 @@ public class HealthManager : MonoBehaviour
 
     private float currentHealth;
 
+    public GameObject gameOver;
+
     private void Awake()
     {
         instance = this;
@@ -35,11 +37,17 @@ public class HealthManager : MonoBehaviour
             float fittedHealth = Fit(currentHealth, 0f, maxHealth, 0f, healthWidth);
             health.sizeDelta = new Vector2(fittedHealth, health.rect.height);
             Debug.Log(currentHealth);
+
+            if(currentHealth <= 0)
+            {
+                gameOver.SetActive(true);
+            }
         }
-        else if (currentHealth <= 0)
-        {
-            //die 
-        }
+        //else if (currentHealth <= 0)
+        //{
+        //    die
+        //    gameOver.SetActive(true);
+        //}
 
     }
     
