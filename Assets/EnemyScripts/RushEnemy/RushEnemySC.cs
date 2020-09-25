@@ -84,7 +84,6 @@ public class RushEnemySC : MonoBehaviour
 
     public void KillEnemy(GameObject go)
     {
-        PlaySound(deathSound);
         Destroy(go);
     }
 

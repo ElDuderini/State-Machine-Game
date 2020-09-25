@@ -128,8 +128,8 @@ MonoBehaviour:
   startPos: {x: 0, y: 0, z: 0}
   moveRange: 5
   deathSound: {fileID: 8300000, guid: 00bd111d3d1b5a143adada0c29045219, type: 3}
-  attackSound: {fileID: 8300000, guid: 6d7e82605748aec4da4b52fd7ed7b612, type: 3}
-  talkSound: {fileID: 8300000, guid: 6d7e82605748aec4da4b52fd7ed7b612, type: 3}
+  attackSound: {fileID: 8300000, guid: 4a3d6b4fc14482841baafd0b614119bd, type: 3}
+  talkSound: {fileID: 8300000, guid: 16647d9a7b9b1e8498226571987143ce, type: 3}
 --- !u!195 &7752355085619005142
 NavMeshAgent:
   m_ObjectHideFlags: 0

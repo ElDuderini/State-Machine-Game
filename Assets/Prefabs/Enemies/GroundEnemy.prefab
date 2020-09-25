@@ -118,8 +118,7 @@ MonoBehaviour:
   startPos: {x: 0, y: 0, z: 0}
   canDodge: 0
   moveRange: 5
-  deathSound: {fileID: 8300000, guid: 00bd111d3d1b5a143adada0c29045219, type: 3}
-  talkSound: {fileID: 8300000, guid: 666341978d7407042ab79d66cd45fdfe, type: 3}
+  talkSound: {fileID: 8300000, guid: 6d7e82605748aec4da4b52fd7ed7b612, type: 3}
   shootSound: {fileID: 8300000, guid: b9d29015e95e4e14ea482c2d8a07d16d, type: 3}
 --- !u!114 &5416203928332940557
 MonoBehaviour:

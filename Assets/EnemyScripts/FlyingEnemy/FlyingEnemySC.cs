@@ -37,7 +37,6 @@ public class FlyingEnemySC : MonoBehaviour
 
     public FlyingEnemyState currentState;
 
-    public AudioClip deathSound;
     public AudioClip hoverSound;
     public AudioClip attackSound;
 
@@ -60,9 +59,14 @@ public class FlyingEnemySC : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else
+        {
+            currentState.Act(this);
+            transform.LookAt(Camera.main.transform.position);
+        }
 
-        currentState.Act(this);
-        transform.LookAt(Camera.main.transform.position);
+       // currentState.Act(this);
+       // transform.LookAt(Camera.main.transform.position);
     }
 
     public void SetState(FlyingEnemyState state)
@@ -81,13 +85,16 @@ public class FlyingEnemySC : MonoBehaviour
     public void Shoot()
     {
         //make sure enemy is on screen before attacking
-        if (RendererExtensions.IsVisibleFrom(GetComponent<Renderer>(), Camera.main))
+        if (GetComponent<Renderer>() != null)
         {
-            GameObject go = Instantiate(enemyShot);
-            go.GetComponent<BulletScript>().SetDamage(damage); 
-            go.transform.position = transform.position;
-            go.transform.LookAt(Camera.main.transform.position);
-            PlaySound(attackSound);
+            if (RendererExtensions.IsVisibleFrom(GetComponent<Renderer>(), Camera.main))
+            {
+                GameObject go = Instantiate(enemyShot);
+                go.GetComponent<BulletScript>().SetDamage(damage);
+                go.transform.position = transform.position;
+                go.transform.LookAt(Camera.main.transform.position);
+                PlaySound(attackSound);
+            }
         }
     }
 

@@ -8,6 +8,7 @@ public class FlyingCoverState : FlyingEnemyState
 
     public override void OnStateEnter(FlyingEnemySC enemy)
     {
+        enemy.PlaySound(enemy.hoverSound);
         for (int i = 0; i < 100; i++)
         {
             //choose a random point in range

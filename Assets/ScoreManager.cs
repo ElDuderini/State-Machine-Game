@@ -12,6 +12,8 @@ public class ScoreManager : MonoBehaviour
     
     [SerializeField]
     private Text text;
+
+    public AudioSource deathSound;
     
     private void Awake()
     {
@@ -24,6 +26,7 @@ public class ScoreManager : MonoBehaviour
     //Call this method when you want to add score, pass it the amount you want to add
     public void AddScore(float s)
     {
+        deathSound.Play();
         score += s;
         text.text = "Score: " + score.ToString();
     }

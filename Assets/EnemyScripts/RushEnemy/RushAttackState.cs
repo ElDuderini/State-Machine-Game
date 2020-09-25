@@ -13,6 +13,7 @@ public class RushAttackState : RushEnemyState
     {
         //don't move when exploding
         enemy.agent.isStopped = true;
+        enemy.PlaySound(enemy.attackSound);
     }
 
     public override void Act(RushEnemySC enemy)

@@ -39,16 +39,15 @@ public class GroundEnemySC : MonoBehaviour
 
     public GroundEnemyState currentState;
 
-
-    public AudioClip deathSound;
-
     public AudioClip talkSound;
     public AudioClip shootSound;
+    private AudioSource soundPlayer;
 
     private void Start()
     {
+        soundPlayer = GetComponent<AudioSource>();
         startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
-        
+        PlaySound(talkSound);
         //get the range from the spawner at start
         if(transform.parent)
         {
@@ -65,8 +64,10 @@ public class GroundEnemySC : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        currentState.Act(this);
+        else
+        {
+            currentState.Act(this);
+        }
     }
 
     public void SetState(GroundEnemyState state)
@@ -84,6 +85,7 @@ public class GroundEnemySC : MonoBehaviour
 
     public void Shoot()
     {
+        PlaySound(shootSound);
         //make sure enemy is on screen before attacking
         if(RendererExtensions.IsVisibleFrom(GetComponent<Renderer>(), Camera.main))
         {
@@ -140,6 +142,7 @@ public class GroundEnemySC : MonoBehaviour
 
     public void PlaySound(AudioClip audio)
     {
-
+        soundPlayer.clip = audio;
+        soundPlayer.Play();
     }
 }
