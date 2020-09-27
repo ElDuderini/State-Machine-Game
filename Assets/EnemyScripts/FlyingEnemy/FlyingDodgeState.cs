@@ -47,7 +47,7 @@ public class FlyingDodgeState : FlyingEnemyState
 
     void FindNewPos(FlyingEnemySC enemy)
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 300; i++)
         {
             //choose a random point in range
             Vector3 pos = (Random.insideUnitSphere * enemy.moveRange) + enemy.startPos;

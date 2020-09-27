@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +25,7 @@ public class ScoreManager : MonoBehaviour
     //Call this method when you want to add score, pass it the amount you want to add
     public void AddScore(float s)
     {
+        deathSound.pitch = Random.Range(0.9f, 1.1f);
         deathSound.Play();
         score += s;
         text.text = "Score: " + score.ToString();

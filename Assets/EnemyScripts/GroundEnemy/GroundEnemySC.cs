@@ -24,7 +24,7 @@ public class GroundEnemySC : MonoBehaviour
     [Tooltip("how long the enemy will try to get to its destination before timing out")]
     public float navigationTimeout;
 
-    public float damage = 10; 
+    public float damage = 10;
     public NavMeshAgent agent;
 
     [HideInInspector]
@@ -48,7 +48,7 @@ public class GroundEnemySC : MonoBehaviour
         soundPlayer = GetComponent<AudioSource>();
         startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
         //get the range from the spawner at start
-        if(transform.parent)
+        if (transform.parent)
         {
             moveRange = transform.parent.GetComponent<EnemySpawner>().range;
         }
@@ -84,16 +84,11 @@ public class GroundEnemySC : MonoBehaviour
 
     public void Shoot()
     {
+        GameObject go = Instantiate(enemyShot);
+        go.GetComponent<BulletScript>().SetDamage(damage);
+        go.transform.position = transform.position;
+        go.transform.LookAt(Camera.main.transform.position);
         PlaySound(shootSound);
-        //make sure enemy is on screen before attacking
-        if(RendererExtensions.IsVisibleFrom(GetComponent<Renderer>(), Camera.main))
-        {
-            GameObject go = Instantiate(enemyShot);
-            go.GetComponent<BulletScript>().SetDamage(damage);
-            go.transform.position = transform.position;
-            go.transform.LookAt(Camera.main.transform.position);
-        }
-
     }
 
     public void MoveToLocation(Vector3 target)
@@ -122,6 +117,8 @@ public class GroundEnemySC : MonoBehaviour
     {
         if (!isQuit)
         {
+            //add to score 
+            ScoreManager.instance.AddScore(GetComponent<Score>().score);
             GameObject go = Instantiate(enemyParticle);
             go.transform.position = transform.position;
         }
@@ -141,6 +138,7 @@ public class GroundEnemySC : MonoBehaviour
 
     public void PlaySound(AudioClip audio)
     {
+        soundPlayer.pitch = Random.Range(0.9f, 1.1f);
         soundPlayer.clip = audio;
         soundPlayer.Play();
     }

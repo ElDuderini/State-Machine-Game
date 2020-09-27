@@ -9,7 +9,7 @@ public class FlyingCoverState : FlyingEnemyState
     public override void OnStateEnter(FlyingEnemySC enemy)
     {
         enemy.PlaySound(enemy.hoverSound);
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 300; i++)
         {
             //choose a random point in range
             Vector3 pos = (Random.insideUnitSphere * enemy.moveRange) + enemy.startPos;
@@ -28,8 +28,9 @@ public class FlyingCoverState : FlyingEnemyState
 
         if(newPos == Vector3.zero)
         {
-            //return zero if no new position is found after 100 tries
+            //kill enemy if no new position could be found because it's stuck
             Debug.Log("Could not find new location with cover", enemy.gameObject);
+            enemy.KillEnemy(enemy.gameObject);
         }
         else
         {

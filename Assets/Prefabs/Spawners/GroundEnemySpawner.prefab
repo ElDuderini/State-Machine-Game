@@ -47,7 +47,7 @@ MonoBehaviour:
     type: 3}
   timeToSpawn: 3
   range: 7
-  maxEnemies: 2
+  maxEnemies: 3
   totalEnemies: 8
   spawnEnemyAtStart: 0
   enemiesSpawned: 0

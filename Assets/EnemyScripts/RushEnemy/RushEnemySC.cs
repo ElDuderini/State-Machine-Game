@@ -67,7 +67,6 @@ public class RushEnemySC : MonoBehaviour
             currentState.OnStateExit(this);
         }
         currentState = state;
-        Debug.Log("Enemy in state " + currentState, gameObject);
         if (currentState != null)
         {
             currentState.OnStateEnter(this);
@@ -89,6 +88,8 @@ public class RushEnemySC : MonoBehaviour
     {
         if (!isQuit)
         {
+            //add to score 
+            ScoreManager.instance.AddScore(GetComponent<Score>().score);
             GameObject go = Instantiate(enemyParticle);
             go.transform.position = transform.position;
         }
@@ -102,6 +103,7 @@ public class RushEnemySC : MonoBehaviour
 
     public void PlaySound(AudioClip audio)
     {
+        soundPlayer.pitch = Random.Range(0.9f, 1.1f);
         soundPlayer.clip = audio;
         soundPlayer.Play();
     }

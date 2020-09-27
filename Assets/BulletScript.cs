@@ -42,8 +42,6 @@ public class BulletScript : MonoBehaviour
             {
                 //destroy the enemy if not rusher
                 other.GetComponent<Score>().health--;
-                //add to score 
-                ScoreManager.instance.AddScore(other.gameObject.GetComponent<Score>().score); 
                 //destroy the bullet
                 Destroy(gameObject);
             }

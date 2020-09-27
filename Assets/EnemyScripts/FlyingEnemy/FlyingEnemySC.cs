@@ -23,7 +23,7 @@ public class FlyingEnemySC : MonoBehaviour
     [Tooltip("prefab for the enemy's bullets")]
     public GameObject enemyShot;
     [Tooltip("how much damage the enemy does")]
-    public float damage = 10; 
+    public float damage = 10;
 
     [HideInInspector]
     public Vector3 startPos;
@@ -45,7 +45,7 @@ public class FlyingEnemySC : MonoBehaviour
     private void Start()
     {
         soundPlayer = GetComponent<AudioSource>();
-        
+
         startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
 
         //get the range from the spawner at start
@@ -65,8 +65,8 @@ public class FlyingEnemySC : MonoBehaviour
             transform.LookAt(Camera.main.transform.position);
         }
 
-       // currentState.Act(this);
-       // transform.LookAt(Camera.main.transform.position);
+        // currentState.Act(this);
+        // transform.LookAt(Camera.main.transform.position);
     }
 
     public void SetState(FlyingEnemyState state)
@@ -84,28 +84,26 @@ public class FlyingEnemySC : MonoBehaviour
 
     public void Shoot()
     {
-        //make sure enemy is on screen before attacking
-        if (GetComponent<Renderer>() != null)
-        {
-            if (RendererExtensions.IsVisibleFrom(GetComponent<Renderer>(), Camera.main))
-            {
-                GameObject go = Instantiate(enemyShot);
-                go.GetComponent<BulletScript>().SetDamage(damage);
-                go.transform.position = transform.position;
-                go.transform.LookAt(Camera.main.transform.position);
-                PlaySound(attackSound);
-            }
-        }
+        GameObject go = Instantiate(enemyShot);
+        go.GetComponent<BulletScript>().SetDamage(damage);
+        go.transform.position = transform.position;
+        go.transform.LookAt(Camera.main.transform.position);
+        PlaySound(attackSound);
+    }
+
+    public void KillEnemy(GameObject go)
+    {
+        Destroy(go);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "PlayerBullet")
+        if (other.tag == "PlayerBullet")
         {
             RaycastHit hit;
-            if(Physics.Raycast(other.transform.position, other.transform.forward, out hit))
+            if (Physics.Raycast(other.transform.position, other.transform.forward, out hit))
             {
-                if(hit.collider.gameObject == gameObject)
+                if (hit.collider.gameObject == gameObject)
                 {
                     canDodge = true;
                 }
@@ -118,6 +116,8 @@ public class FlyingEnemySC : MonoBehaviour
         //PlaySound(deathSound);
         if (!isQuit)
         {
+            //add to score 
+            ScoreManager.instance.AddScore(GetComponent<Score>().score);
             GameObject go = Instantiate(enemyParticle);
             go.transform.position = transform.position;
         }
@@ -131,6 +131,7 @@ public class FlyingEnemySC : MonoBehaviour
 
     public void PlaySound(AudioClip audio)
     {
+        soundPlayer.pitch = Random.Range(0.9f, 1.1f);
         soundPlayer.clip = audio;
         soundPlayer.Play();
     }
