@@ -38,7 +38,7 @@ public class BulletScript : MonoBehaviour
         if(!other.isTrigger)
         {
             //determine if hit enemy or player
-            if(gameObject.tag == "PlayerBullet" && other.tag == "Enemy")
+            if(gameObject.tag == "PlayerBullet" && (other.tag == "Enemy" || other.tag =="RushEnemy"))
             {
                 //destroy the enemy if not rusher
                 other.GetComponent<Score>().health--;
