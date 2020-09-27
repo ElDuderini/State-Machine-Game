@@ -35,6 +35,8 @@ public class RushEnemySC : MonoBehaviour
     public AudioClip talkSound;
     private AudioSource soundPlayer;
 
+    //public ExplosionSound explosionSound;
+
     private void Start()
     {
         soundPlayer = GetComponent<AudioSource>();

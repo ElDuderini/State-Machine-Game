@@ -50,7 +50,6 @@ public class RushAttackState : RushEnemyState
                     enemy.KillEnemy(col.gameObject);
                 }
             }
-
             //destroy the enemy
             enemy.KillEnemy(enemy.gameObject);
         }

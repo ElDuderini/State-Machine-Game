@@ -13,6 +13,7 @@ public class ScoreManager : MonoBehaviour
     private Text text;
 
     public AudioSource deathSound;
+    public AudioSource explosionSound;
     
     private void Awake()
     {
@@ -25,8 +26,15 @@ public class ScoreManager : MonoBehaviour
     //Call this method when you want to add score, pass it the amount you want to add
     public void AddScore(float s)
     {
-        deathSound.pitch = Random.Range(0.9f, 1.1f);
-        deathSound.Play();
+        if (s == 20)
+        {
+            explosionSound.Play();
+        }
+        else
+        {
+            deathSound.pitch = Random.Range(0.9f, 1.1f);
+            deathSound.Play();
+        }
         score += s;
         text.text = "Score: " + score.ToString();
     }
