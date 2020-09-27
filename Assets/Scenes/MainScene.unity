@@ -1448,7 +1448,7 @@ MonoBehaviour:
   - {fileID: 6807563281845947569, guid: 060d54c6d5f748c4987d1ee7ee19104f, type: 3}
   - {fileID: 922501709325729739, guid: bea8d927ea6201543aa42c443e7a34e7, type: 3}
   - {fileID: 8892688561329719673, guid: 85d5252ba4aae2844a900676bf049077, type: 3}
-  spawnerCount: 6
+  spawnerCount: 2
   planetSpawnRange: {fileID: 1303660582}
   planetPrefab:
   - {fileID: 7669883124410814920, guid: 1e94beeee9e07754c862720bd1ef20df, type: 3}
