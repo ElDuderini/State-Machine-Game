@@ -47,7 +47,6 @@ public class GroundEnemySC : MonoBehaviour
     {
         soundPlayer = GetComponent<AudioSource>();
         startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
-        PlaySound(talkSound);
         //get the range from the spawner at start
         if(transform.parent)
         {

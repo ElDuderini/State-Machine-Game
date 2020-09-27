@@ -31,7 +31,6 @@ public class RushEnemySC : MonoBehaviour
 
     public RushEnemyState currentState;
 
-    public AudioClip deathSound;
     public AudioClip attackSound;
     public AudioClip talkSound;
     private AudioSource soundPlayer;
@@ -39,7 +38,6 @@ public class RushEnemySC : MonoBehaviour
     private void Start()
     {
         soundPlayer = GetComponent<AudioSource>();
-        PlaySound(talkSound);
 
         startPos = transform.parent.GetComponent<EnemySpawner>().startPos;
 
