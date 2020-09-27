@@ -15,7 +15,7 @@ public class RushEnemyDodge : RushEnemyState
         var startPos = enemy.agent.transform;
         initPos = startPos.position; 
 
-        float rand = Random.Range(0, 1); 
+        float rand = Random.Range(0f, 1f);
         if(rand > 0.5f)
         {
             pos = initPos + startPos.right * moveDistance;  
@@ -31,7 +31,7 @@ public class RushEnemyDodge : RushEnemyState
     public override void Act(RushEnemySC enemy)
     {
       
-        if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
+        if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance || enemy.agent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete)
         {
             
             enemy.SetState(new RushMoveState());

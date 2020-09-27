@@ -107,15 +107,12 @@ MonoBehaviour:
     m_Bits: 3840
   enemyParticle: {fileID: 7739705542155594709, guid: f0b89cc7b10ecfd40a2b80fb167d78b7,
     type: 3}
-  navigationTimeout: 5
   damage: 100
   agent: {fileID: 7752355085619005142}
   startPos: {x: 0, y: 0, z: 0}
   moveRange: 5
   attackSound: {fileID: 8300000, guid: 4a3d6b4fc14482841baafd0b614119bd, type: 3}
   talkSound: {fileID: 8300000, guid: 16647d9a7b9b1e8498226571987143ce, type: 3}
-  explosionSound: {fileID: 5499032407570771080, guid: db2bcaabb683975469b8f05229fdbc7b,
-    type: 3}
 --- !u!195 &7752355085619005142
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -125,7 +122,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7752355085619005144}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50

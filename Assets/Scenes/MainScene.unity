@@ -941,7 +941,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29ea39602f56344bb71bdf6b146ffae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionEffect: {fileID: 0}
 --- !u!1 &681973597
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,12 +1281,12 @@ PrefabInstance:
     - target: {fileID: 3547240981900709030, guid: 8e4fd2f8db170f646830b5b51e943e4c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -217
+      value: -273
       objectReference: {fileID: 0}
     - target: {fileID: 3547240981900709030, guid: 8e4fd2f8db170f646830b5b51e943e4c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -95
+      value: -130
       objectReference: {fileID: 0}
     - target: {fileID: 3547240981900709030, guid: 8e4fd2f8db170f646830b5b51e943e4c,
         type: 3}
@@ -1582,8 +1581,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15.8, y: 0.4208598, z: 12.296806}
-  m_Center: {x: 0, y: 0.2895701, z: 0.75159764}
+  m_Size: {x: 13.41, y: 0.4208598, z: 8.582526}
+  m_Center: {x: 0, y: 0.2895701, z: -0.044373035}
 --- !u!114 &1136835069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2205,12 +2204,12 @@ PrefabInstance:
     - target: {fileID: 9039967912885553988, guid: 144bf601c367be042935c649811cd627,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -218
+      value: -274.00006
       objectReference: {fileID: 0}
     - target: {fileID: 9039967912885553988, guid: 144bf601c367be042935c649811cd627,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -48
+      value: -83
       objectReference: {fileID: 0}
     - target: {fileID: 9039967912885553988, guid: 144bf601c367be042935c649811cd627,
         type: 3}
@@ -2434,7 +2433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 24.5, y: -28}
+  m_AnchoredPosition: {x: 59, y: -91}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1487915750
@@ -3131,7 +3130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 944065528}
   deathSound: {fileID: 1141863083}
-  explosionSound: {fileID: 0}
+  explosionSound: {fileID: 2143839257}
 --- !u!114 &1758246658
 MonoBehaviour:
   m_ObjectHideFlags: 0

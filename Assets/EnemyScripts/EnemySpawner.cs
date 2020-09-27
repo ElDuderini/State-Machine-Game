@@ -61,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
             if(Physics.Raycast(rand, Vector3.down, out hit, 1 << LayerMask.NameToLayer("Environment")))
             {
                 //raycast between spawn point and camera to see if the enemy will spawn behind cover and not inside an object
-                if (Physics.Linecast(hit.point, Camera.main.transform.position, 1 << LayerMask.NameToLayer("Cover")))
+                if (Physics.Linecast(hit.point, Camera.main.transform.position, 1 << LayerMask.NameToLayer("Cover")) && !Physics.CheckSphere(hit.point, 1, 1 << LayerMask.NameToLayer("Cover")))
                 {
                     //spawn the enemy and stop the loop
                     enemiesSpawned++;

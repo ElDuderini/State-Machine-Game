@@ -36,9 +36,7 @@ public class RushAttackState : RushEnemyState
 
                     //scale damage dealt based on distance from enemy, so further enemy = less damage taken
                     float damage = (Vector3.Distance(enemy.transform.position, Camera.main.transform.position) - enemy.agent.stoppingDistance) / enemy.GetComponent<SphereCollider>().radius;
-                    Debug.Log(damage);
                     damage = (1 - damage) * enemy.damage;
-                    Debug.Log(damage);
 
                     //show health damage
                     HealthManager.instance.SubtractHealth(damage);

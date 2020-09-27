@@ -15,8 +15,6 @@ public class RushEnemySC : MonoBehaviour
     public LayerMask castLayers;
     [Tooltip("particle prefab for when the enemy dies")]
     public GameObject enemyParticle;
-    [Tooltip("how long the enemy will try to get to its destination before timing out")]
-    public float navigationTimeout;
 
     public float damage = 10; 
     public NavMeshAgent agent;
@@ -90,10 +88,12 @@ public class RushEnemySC : MonoBehaviour
     {
         if (!isQuit)
         {
+            print("Explode");
             //add to score 
             ScoreManager.instance.AddScore(GetComponent<Score>().score);
             GameObject go = Instantiate(enemyParticle);
             go.transform.position = transform.position;
+            go.transform.localScale = new Vector3(2f, 2f, 2f);
         }
     }
 

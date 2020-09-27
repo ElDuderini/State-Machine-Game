@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c05362dd440884b9771c9efea710f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceToAttack: 30
+  chanceToAttack: 25
   waitTime: 1
   speed: 10
   dodgeChance: 15
